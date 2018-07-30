@@ -13,7 +13,9 @@ class AppmodeHandler(IPythonHandler):
     def get(self, path):
         """get renders the notebook template if a name is given, or
         redirects to the '/files/' handler if the name is not given."""
-
+        path_split = path.split('/')
+        user_name = path_split[0] # we dont use this right now
+        path = '/'.join(path_split[1:])
         path = path.strip('/')
         self.log.info('Appmode get: %s', path)
 
