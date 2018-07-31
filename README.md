@@ -1,4 +1,4 @@
-# Appmode
+# Multi-user Appmode
 
 **A Jupyter extensions that turns notebooks into web applications.**
 
@@ -6,7 +6,7 @@
 
 ## Try it live
 
-[![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/chestrays/appmode/master?urlpath=%2Fapps%2Fexample_app.ipynb)
+[![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/chestrays/appmode/master?urlpath=%2Fapps%2Fmy_user_name%2Fexample_app.ipynb)
 
 Click the binder badge to try it live without installing anything. This will take you directly to the "app" version of the notebook.
 
@@ -20,17 +20,9 @@ conda install --channel conda-forge appmode
 
 If you use ``pip``, you can install it as:
 ```
-pip install appmode
+pip install git+https://github.com/chestrays/multiappmode
 jupyter nbextension     enable --py --sys-prefix appmode
 jupyter serverextension enable --py --sys-prefix appmode
-```
-
-If you want to use [mybinder](https://mybinder.org) add the following `environment.yml` file to your repository:
-```
-channels:
-  - conda-forge
-dependencies:
-  - appmode
 ```
 
 ## Description
@@ -54,13 +46,3 @@ $('#appmode-busy').hide();                           // Hides the kernel busy in
 $('#appmode-loader').append('<h2>Loading...</h2>');  // Adds a loading message.
 ```
 Beware that hiding the edit button does not prevent users from leaving Appmode by changing the URL manually.
-
-## Development
-
-With the included [Dockerfile](./Dockerfile) a development environment can be quickly created:
-
-1. Install [Docker](https://docs.docker.com/engine/installation/).
-2. git clone this repository
-3. `docker build --tag appmode_dev ./`
-4. `docker run --init -ti -p8888:8888 appmode_dev`
-5. Browse to `http://localhost:8888/apps/example_app.ipynb`
