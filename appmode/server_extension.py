@@ -5,6 +5,7 @@ import itertools
 from notebook.utils import url_path_join
 from notebook.base.handlers import IPythonHandler, FilesRedirectHandler, path_regex
 import notebook.notebook.handlers as orig_handler
+import os
 from tornado import web
 
 class AppmodeHandler(IPythonHandler):
@@ -14,7 +15,8 @@ class AppmodeHandler(IPythonHandler):
         """get renders the notebook template if a name is given, or
         redirects to the '/files/' handler if the name is not given."""
         path_split = path.split('/')
-        user_name = path_split.pop(1) # we dont use this right now
+        user_name = path_split.pop(1)
+        os.environ['APPMODE_USER']=user_name # easiest way to pass it to the app
         path = '/'.join(path_split)
         path = path.strip('/')
         self.log.info('Appmode get: %s', path)
@@ -105,7 +107,7 @@ def load_jupyter_server_extension(nbapp):
 
     web_app = nbapp.web_app
     host_pattern = '.*$'
-    route_pattern = url_path_join(web_app.settings['base_url'], r'/apps%s' % path_regex)
+    route_pattern = url_path_join(web_app.settings['base_url'], r'/muapps%s' % path_regex)
     web_app.add_handlers(host_pattern, [(route_pattern, AppmodeHandler)])
     nbapp.log.info("Appmode server extension loaded.")
 
