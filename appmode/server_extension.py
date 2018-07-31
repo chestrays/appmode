@@ -5,7 +5,6 @@ import itertools
 from notebook.utils import url_path_join
 from notebook.base.handlers import IPythonHandler, FilesRedirectHandler, path_regex
 import notebook.notebook.handlers as orig_handler
-import os
 from tornado import web
 
 class AppmodeHandler(IPythonHandler):
@@ -16,7 +15,8 @@ class AppmodeHandler(IPythonHandler):
         redirects to the '/files/' handler if the name is not given."""
         path_split = path.split('/')
         user_name = path_split.pop(1)
-        os.environ['APPMODE_USER']=user_name # easiest way to pass it to the app
+        # global environment variables are lazy but easiest way to pass username
+        os.environ['APPMODE_USER']=user_name
         path = '/'.join(path_split)
         path = path.strip('/')
         self.log.info('Appmode get: %s', path)
