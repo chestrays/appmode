@@ -1,6 +1,6 @@
 # Multi-user Appmode
 
-**A Jupyter extensions that turns notebooks into web applications.**
+**A Jupyter extensions that turns notebooks into multiple-user web applications.**
 
 ![screenshots](./screenshots.png)
 
@@ -12,11 +12,6 @@ Click the binder badge to try it live without installing anything. This will tak
 
 
 ## Installation
-
-If you use `conda`, you can install it as:
-```
-conda install --channel conda-forge appmode
-```
 
 If you use ``pip``, you can install it as:
 ```
