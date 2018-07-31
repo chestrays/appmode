@@ -18,7 +18,7 @@ define([
     //==========================================================================
     var appmode_unload_handler = function (e) {
         var nb = Jupyter.notebook;
-        var url_parts = [nb.base_url, 'apps', nb.notebook_path];
+        var url_parts = [nb.base_url, 'muapps', nb.notebook_path];
         var url = utils.url_path_join.apply(null, url_parts);
 
         // tell server to clean up session, kernel, and tmp notebook file.
@@ -55,16 +55,17 @@ define([
         }
 
         // goto new URL
-        window.location.href = base_url + "apps/" + path + search;
+        window.location.href = base_url + "muapps/default_user/" + path + search;
     }
 
     //==========================================================================
     function goto_normal_mode() {
         // build new URL
         var base_url = Jupyter.notebook.base_url;
-        var prefix = base_url+"apps/"
+        var prefix = base_url+"muapps/"
         var path = window.location.pathname.substring(prefix.length);
-        var new_url = base_url + "notebooks/" + path + window.location.search;
+        
+        var new_url = base_url + "//notebooks/" + path + window.location.search;
 
         // goto new URL
         // Not using location.pathname as it might urlencode the path again
@@ -114,7 +115,7 @@ define([
         });
 
         var base_url = Jupyter.notebook.base_url;
-        if(window.location.pathname.startsWith(base_url+"apps/")){
+        if(window.location.pathname.startsWith(base_url+"muapps/")){
             // appmode is active -> continue intializtion
             initialize_step4();
         }
