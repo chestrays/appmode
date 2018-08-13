@@ -18,7 +18,7 @@ class AppmodeHandler(IPythonHandler):
         user_name = path_split.pop(1)
         # global environment variables are lazy but easiest way to pass username
         os.environ['APPMODE_USER']=user_name
-        os.environ['APPMODE_HEADER'] = json.dumps(self.settings.get('headers', {}))
+        os.environ['APPMODE_SETTINGS'] = json.dumps(self.settings)
         path = '/'.join(path_split)
         path = path.strip('/')
         self.log.info('Appmode get: %s', path)
