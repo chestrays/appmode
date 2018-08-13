@@ -6,6 +6,7 @@ from notebook.utils import url_path_join
 from notebook.base.handlers import IPythonHandler, FilesRedirectHandler, path_regex
 import notebook.notebook.handlers as orig_handler
 from tornado import web
+import json
 
 class AppmodeHandler(IPythonHandler):
     #===========================================================================
@@ -17,6 +18,7 @@ class AppmodeHandler(IPythonHandler):
         user_name = path_split.pop(1)
         # global environment variables are lazy but easiest way to pass username
         os.environ['APPMODE_USER']=user_name
+        os.environ['APPMODE_SETTINGS'] = json.dumps(self.settings)
         path = '/'.join(path_split)
         path = path.strip('/')
         self.log.info('Appmode get: %s', path)
